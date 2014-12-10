@@ -17,8 +17,15 @@ module.exports = (robot) ->
   # load all hubot-* modules from package.json
   packageJson = require './package.json'
   pkgs = (pkg for own pkg, version of packageJson.dependencies \
-          when !/^(coffee-script|hubot-scripts)$/.test(pkg))
+          when !/^(coffee-script|hubot-scripts|hubot-help)$/.test(pkg))
   pkgs.forEach (p) -> (require p)(robot)
+  # A special hack for hubot-help: ensure it replies via pm
+  privRobot = Object.create robot
+  privRobot.respond = (regex, cb) ->
+    robot.respond regex, (resp) ->
+      resp.message.private = true
+      cb(resp)
+  (require 'hubot-help')(privRobot)
   # A special hack for meme_captain: change its "respond"
   # invocations to "hear" so that it memes everywhere.
   memecaptain = require './node_modules/hubot-scripts/src/scripts/meme_captain'
