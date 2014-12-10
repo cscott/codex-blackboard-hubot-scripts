@@ -14,6 +14,7 @@ module.exports = (robot) ->
     'hubot-scripts', 'src', 'scripts'
   scripts = require './hubot-scripts.json'
   robot.loadHubotScripts scriptPath, scripts
+  robot.parseHelp path.join scriptPath, 'meme_captain.coffee'
   # load all hubot-* modules from package.json
   packageJson = require './package.json'
   pkgs = (pkg for own pkg, version of packageJson.dependencies \
