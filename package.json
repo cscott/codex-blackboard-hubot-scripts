@@ -22,6 +22,9 @@
   "homepage": "https://github.com/cscott/codex-blackboard-hubot-scripts",
   "dependencies": {
     "coffee-script": "^1.8.0",
+    "hubot-google-hangouts": "^0.7.1",
+    "hubot-google-images": "^0.1.1",
+    "hubot-google-translate": "^0.1.0",
     "hubot-scripts": "^2.5.16"
   }
 }

@@ -1,6 +1,8 @@
 fs = require 'fs'
 path = require 'path'
 
+process.env.HUBOT_GOOGLE_HANGOUTS_DOMAIN = 'cscott.net'
+
 module.exports = (robot) ->
   # load all scripts in scripts/
   scriptPath = path.resolve __dirname, 'scripts'
