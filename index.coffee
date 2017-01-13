@@ -20,6 +20,7 @@ module.exports = (robot) ->
   packageJson = require './package.json'
   pkgs = (pkg for own pkg, version of packageJson.dependencies \
           when !/^(coffee-script|hubot-scripts|hubot-help)$/.test(pkg))
+  console.log pkgs
   pkgs.forEach (p) -> (require p)(robot)
   # A special hack for hubot-help: ensure it replies via pm
   privRobot = Object.create robot
