@@ -4,6 +4,7 @@ path = require 'path'
 process.env.HUBOT_GOOGLE_HANGOUTS_DOMAIN = 'cscott.net'
 
 module.exports = (robot) ->
+  console.log "Bar"
   # load all scripts in scripts/
   scriptPath = path.resolve __dirname, 'scripts'
   for file in fs.readdirSync(scriptPath)
@@ -32,7 +33,9 @@ module.exports = (robot) ->
   memecaptain = require './node_modules/hubot-scripts/src/scripts/meme_captain'
   memecaptain
     respond: (regex, cb) ->
+      console.log regex.toString()
       robot.hear regex, (msg) ->
         cb(msg) if msg.envelope.room is 'general/0' \
           or /^\s*[@]?(codex)?bot\b/i.test(msg.message.text)
   # done!
+  console.log "Foo"
