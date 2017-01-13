@@ -15,7 +15,7 @@ module.exports = (robot) ->
     'hubot-scripts', 'src', 'scripts'
   scripts = require './hubot-scripts.json'
   robot.loadHubotScripts scriptPath, scripts
-  robot.parseHelp path.join scriptPath, 'meme_captain.coffee'
+  #robot.parseHelp path.join scriptPath, 'meme_captain.coffee'
   # load all hubot-* modules from package.json
   packageJson = require './package.json'
   pkgs = (pkg for own pkg, version of packageJson.dependencies \
@@ -28,6 +28,7 @@ module.exports = (robot) ->
       resp.message.private = true
       cb(resp)
   (require 'hubot-help')(privRobot)
+  return
   # A special hack for meme_captain: change its "respond"
   # invocations to "hear" so that it memes everywhere.
   memecaptain = require './node_modules/hubot-scripts/src/scripts/meme_captain'
