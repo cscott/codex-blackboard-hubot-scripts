@@ -10,11 +10,12 @@ module.exports = (robot) ->
     continue unless /\.(coffee|js)$/.test(file)
     robot.loadFile scriptPath, file
   # load all scripts from hubot-scripts
-  scriptPath = path.resolve __dirname, 'node_modules', \
-    'hubot-scripts', 'src', 'scripts'
+  scriptPath = (path.resolve __dirname, p, 'hubot-scripts', 'src', 'scripts' \
+    for p in module.paths).filter (p) -> fs.existsSync(p)
+  console.log scriptPath
   scripts = require './hubot-scripts.json'
-  robot.loadHubotScripts scriptPath, scripts
-  robot.parseHelp path.join scriptPath, 'meme_captain.coffee'
+  robot.loadHubotScripts scriptPath[0], scripts
+  robot.parseHelp path.join scriptPath[0], 'meme_captain.coffee'
   # load all hubot-* modules from package.json
   packageJson = require './package.json'
   pkgs = (pkg for own pkg, version of packageJson.dependencies \
@@ -29,7 +30,7 @@ module.exports = (robot) ->
   (require 'hubot-help')(privRobot)
   # A special hack for meme_captain: change its "respond"
   # invocations to "hear" so that it memes everywhere.
-  memecaptain = require './node_modules/hubot-scripts/src/scripts/meme_captain'
+  memecaptain = require(path.resolve __dirname, scriptPath[0], 'meme_captain')
   memecaptain
     respond: (regex, cb) ->
       robot.hear regex, (msg) ->
