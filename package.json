@@ -1,6 +1,6 @@
 {
   "name": "codex-blackboard-hubot-scripts",
-  "version": "2.0.0+git",
+  "version": "2.1.0",
   "description": "Hubot scripts for codex-blackboard",
   "main": "index.js",
   "scripts": {
