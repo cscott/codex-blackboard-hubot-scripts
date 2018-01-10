@@ -12,7 +12,6 @@ module.exports = (robot) ->
   # load all scripts from hubot-scripts
   scriptPath = (path.resolve __dirname, p, 'hubot-scripts', 'src', 'scripts' \
     for p in module.paths).filter (p) -> fs.existsSync(p)
-  console.log scriptPath
   scripts = require './hubot-scripts.json'
   robot.loadHubotScripts scriptPath[0], scripts
   robot.parseHelp path.join scriptPath[0], 'meme_captain.coffee'
