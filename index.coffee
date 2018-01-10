@@ -14,7 +14,6 @@ module.exports = (robot) ->
     for p in module.paths).filter (p) -> fs.existsSync(p)
   scripts = require './hubot-scripts.json'
   robot.loadHubotScripts scriptPath[0], scripts
-  robot.parseHelp path.join scriptPath[0], 'meme_captain.coffee'
   # load all hubot-* modules from package.json
   packageJson = require './package.json'
   pkgs = (pkg for own pkg, version of packageJson.dependencies \
@@ -27,12 +26,4 @@ module.exports = (robot) ->
       resp.message.private = true
       cb(resp)
   (require 'hubot-help')(privRobot)
-  # A special hack for meme_captain: change its "respond"
-  # invocations to "hear" so that it memes everywhere.
-  memecaptain = require(path.resolve __dirname, scriptPath[0], 'meme_captain')
-  memecaptain
-    respond: (regex, cb) ->
-      robot.hear regex, (msg) ->
-        cb(msg) if msg.envelope.room is 'general/0' \
-          or /^\s*[@]?(codex)?bot\b/i.test(msg.message.text)
   # done!
